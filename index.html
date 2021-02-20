@@ -8,20 +8,59 @@
     <title>Etch-A-Sketch</title>
 </head>
 <body>
-    <h1>test</h1>
-    <div id="container" class="grid-container">
+    <div class="main">
+        <section class="settingPanel">
+            <h1 class="settingPanelTitle">Settings & Options</h1>
+            <div class="colorSetting">
+                <h2>In progress</h2>
+            </div>
+            <div class="canvasSizeInput">
+                <input type="number" min='2' max='100' class="sizeInputField widthInput" placeholder="Canvas Width">
+                <span class="X">&#10006;</span>
+                <input type="number" min='2' max='100'  class="sizeInputField heightInput" placeholder="Canvas Height">
+            </div>
+            <button class="clearButton button">Clear Canvas</button>
+            <button class="newCanvasButton button">Generate Canvas</button>
+        </section>
+        <section class="canvasContainer"><div id="canvasContainer" class=" grid-container"/></section>
+
+        
         
     </div>
+    
    
     <script>
+       
         const canvasSize = 16;
-        const container = document.getElementById("container");
+        const container = document.getElementById("canvasContainer");
+
+        //Generate random number within rga value
+        function randomNum() {
+            return Math.floor(Math.random() * 256);
+         }
+
+         function randomRGB() {
+            var red = randomNum();
+            var green = randomNum();
+            var blue = randomNum();
+            return [red,green,blue];
+    }    
 
         for (let i = 0; i < canvasSize**2; i++) {
-            var newDiv = document.createElement('div');
-            newDiv.className = "grid-item";
-            newDiv.innerHTML = i+1;
-            container.appendChild(newDiv);
+            var newCell = document.createElement('div');
+            newCell.className = "grid-item";
+            newCell.innerHTML = i+1;    
+
+            newCell.addEventListener("mouseover", (e) =>{
+            // Returns an array of 3 new values for rgb
+            var newrgbVals = randomRGB();
+            // Store an new array of values for rgb
+            var rgbVals = newrgbVals;
+            e.target.style.backgroundColor= ('rgb(' + rgbVals[0] + ',' + rgbVals[1] + ',' +  rgbVals[2] + ')');
+            
+        });
+
+            container.appendChild(newCell);
         }
        
     </script>

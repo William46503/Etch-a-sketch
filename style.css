@@ -4,9 +4,91 @@
     margin: 0;
 }
 
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+.settingPanel{
+    width: 30%;
+    height: 300px;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+   
+    margin: auto 5%  auto 10%;
+}
+
+.settingPanelTitle{
+    grid-column: 1 / span 4; 
+    grid-row: 1;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.colorSetting{
+    grid-column: 1 / span 4;
+    grid-row: 2;
+    text-align: center;
+}
+
+.canvasSizeInput{
+    display: inline-grid;
+    grid-template-rows: 1, auto;
+    grid-template-columns: 1fr 1fr 0.5fr 1fr 1fr;
+    grid-column: 1/ span 4;
+    grid-row: 3;
+}
+
+.X{
+    grid-column: 3/4;
+    margin: auto;
+   
+}
+.sizeInputField{
+    grid-column: span 2;
+    text-align: center;
+    margin: 20px 100px;
+}
+.widthInput{
+    margin-right: 0;
+}
+.heightInput{
+    margin-left: 0;
+}
+
+.button{
+    margin: 10px 30px;
+    border: 1px solid black;
+    background-color: white;
+    transition: all 0.3s ease-out;
+    
+}
+
+.button:hover{
+    background-color: black;
+    color: whitesmoke;
+}
+
+.clearButton{
+  
+    grid-column: 1/3;
+    grid-row: 4;
+}
+
+.newCanvasButton{
+   
+    grid-column: 3/5;
+    grid-row: 4;
+}
+
 .grid-container{
-    height: 600px;
-    width: 600px;
+    margin: 5% 150px;
+    height: 800px;
+    width: 800px;
     display: inline-grid;
     grid-template-columns: repeat(16, auto);
     grid-template-rows: repeat(16, auto);
@@ -16,5 +98,9 @@
     border: 1px solid black;
     text-align: center;
     padding: 10px;
-    background-color: bisque;
+   
+}
+
+.colorCell{
+    background-color: rgba(red, green, blue, alpha);
 }
