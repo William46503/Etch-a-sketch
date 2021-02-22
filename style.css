@@ -41,6 +41,7 @@
     grid-template-columns: 1fr 1fr 0.5fr 1fr 1fr;
     grid-column: 1/ span 4;
     grid-row: 3;
+    margin: 20px 50px;
 }
 
 .X{
@@ -51,7 +52,6 @@
 .sizeInputField{
     grid-column: span 2;
     text-align: center;
-    margin: 20px 100px;
 }
 .widthInput{
     margin-right: 0;

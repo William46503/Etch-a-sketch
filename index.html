@@ -15,12 +15,13 @@
                 <h2>In progress</h2>
             </div>
             <div class="canvasSizeInput">
-                <input type="number" min='2' max='100' class="sizeInputField widthInput" placeholder="Canvas Width">
+                <input type="number" min='2' max='100' class="sizeInputField widthInput" placeholder="Canvas Width" id="canvasWidth"   onchange="resizeCanvas()" />
                 <span class="X">&#10006;</span>
-                <input type="number" min='2' max='100'  class="sizeInputField heightInput" placeholder="Canvas Height">
+                <input type="number" min='2' max='100'  class="sizeInputField heightInput" placeholder="Canvas Height" id="canvasHeight" onchange="resizeCanvas()"/>
             </div>
             <button class="clearButton button">Clear Canvas</button>
-            <button class="newCanvasButton button">Generate Canvas</button>
+            <button class="newCanvasButton button" onclick="{console.log('Generate Canvas');''
+            }">Generate Canvas</button>
         </section>
         <section class="canvasContainer"><div id="canvasContainer" class=" grid-container"/></section>
 
@@ -31,7 +32,7 @@
    
     <script>
        
-        const canvasSize = 16;
+        var canvasSize = 16;
         const container = document.getElementById("canvasContainer");
 
         //Generate random number within rga value
@@ -44,7 +45,16 @@
             var green = randomNum();
             var blue = randomNum();
             return [red,green,blue];
-    }    
+        }    
+
+        function resizeCanvas (){
+            var newCanvasWidth = document.getElementById('canvasWidth').value;
+            var newCanvasHeight = document.getElementById('canvasHeight').value;
+            console.log(newCanvasWidth, newCanvasHeight);
+            // var newCanvasWidth = document.getElementsByName("canvasWidth").value;
+            // var newCanvasHeight = document.getElementsByName("canvasHeight").value;
+            
+        }
 
         for (let i = 0; i < canvasSize**2; i++) {
             var newCell = document.createElement('div');
