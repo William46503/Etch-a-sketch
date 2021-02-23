@@ -85,22 +85,25 @@
     grid-row: 4;
 }
 
+.canvasMainContainer{
+    margin: 50px 50px 0px 0px;
+    width: 850px;
+    height:850px;
+
+}
+
 .grid-container{
-    margin: 5% 150px;
-    height: 800px;
-    width: 800px;
-    display: inline-grid;
-    grid-template-columns: repeat(16, auto);
-    grid-template-rows: repeat(16, auto);
+    display: grid;
+
+    /*For grid-items to be generated only within the parent width and height, to avoid overflow or disporpotion*/
+    height: inherit;    
+    width: inherit;
+ 
 }
 
 .grid-item {
-    border: 1px solid black;
+    border: 1px solid gray;
+    border-radius: 3px;
     text-align: center;
-    padding: 10px;
    
-}
-
-.colorCell{
-    background-color: rgba(red, green, blue, alpha);
 }

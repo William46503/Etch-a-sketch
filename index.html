@@ -15,25 +15,21 @@
                 <h2>In progress</h2>
             </div>
             <div class="canvasSizeInput">
-                <input type="number" min='2' max='100' class="sizeInputField widthInput" placeholder="Canvas Width" id="canvasWidth"   onchange="resizeCanvas()" />
+                <input type="number" min='2' max='100' class="sizeInputField widthInput" placeholder="Canvas Width" id="canvasWidth"   onchange="{console.log(document.getElementById('canvasWidth').value)}" />
                 <span class="X">&#10006;</span>
-                <input type="number" min='2' max='100'  class="sizeInputField heightInput" placeholder="Canvas Height" id="canvasHeight" onchange="resizeCanvas()"/>
+                <input type="number" min='2' max='100'  class="sizeInputField heightInput" placeholder="Canvas Height" id="canvasHeight" onchange="{console.log(document.getElementById('canvasHeight').value)}"/>
             </div>
-            <button class="clearButton button">Clear Canvas</button>
-            <button class="newCanvasButton button" onclick="{console.log('Generate Canvas');''
-            }">Generate Canvas</button>
+            <button class="clearButton button" onclick="resetCanvasColor()">Clear Canvas</button>
+            <button class="newCanvasButton button" onclick="generateNewCanvas(document.getElementById('canvasWidth').value, document.getElementById('canvasHeight').value)">Generate Canvas</button>
         </section>
-        <section class="canvasContainer"><div id="canvasContainer" class=" grid-container"/></section>
-
-        
-        
+        <section class="canvasMainContainer"><div id="canvasContainer" class=" grid-container"></div></section>
     </div>
     
    
     <script>
-       
-        var canvasSize = 16;
         const container = document.getElementById("canvasContainer");
+        var canvasCurrentWidth = 16;
+        var canvasCurrentHeight = 16;
 
         //Generate random number within rga value
         function randomNum() {
@@ -47,32 +43,44 @@
             return [red,green,blue];
         }    
 
-        function resizeCanvas (){
-            var newCanvasWidth = document.getElementById('canvasWidth').value;
-            var newCanvasHeight = document.getElementById('canvasHeight').value;
-            console.log(newCanvasWidth, newCanvasHeight);
-            // var newCanvasWidth = document.getElementsByName("canvasWidth").value;
-            // var newCanvasHeight = document.getElementsByName("canvasHeight").value;
-            
+        //generate a new canvas and rewrite the current remembered Width and Height for other usage
+        function generateNewCanvas(newWidth, newHeight){
+            container.querySelectorAll("div").forEach(item => item.remove());
+            canvasCurrentWidth = newWidth;
+            canvasCurrentHeight = newHeight;
+            generateCanvas(canvasCurrentWidth, canvasCurrentHeight);
+        }
+        
+        //Reset the canvas by generate a new canvas with the current memoried width and height
+        function resetCanvasColor(){
+            generateNewCanvas(canvasCurrentWidth, canvasCurrentHeight);
+            console.log("canvas reset is pressed");
         }
 
-        for (let i = 0; i < canvasSize**2; i++) {
+        function generateCanvas(width, height) {
+            var canvasArea = width * height;
+            document.getElementById("canvasContainer").style.gridTemplateColumns = "repeat(" + width + ", auto)";
+            document.getElementById("canvasContainer").style.gridTemplateRows = "repeat(" + height + ", auto)";
+
+            for (let i = 0; i < canvasArea; i++) {
             var newCell = document.createElement('div');
-            newCell.className = "grid-item";
-            newCell.innerHTML = i+1;    
+            newCell.className = "grid-item";   
 
             newCell.addEventListener("mouseover", (e) =>{
-            // Returns an array of 3 new values for rgb
-            var newrgbVals = randomRGB();
-            // Store an new array of values for rgb
-            var rgbVals = newrgbVals;
-            e.target.style.backgroundColor= ('rgb(' + rgbVals[0] + ',' + rgbVals[1] + ',' +  rgbVals[2] + ')');
+                // Returns an array of 3 new values for rgb
+                var newrgbVals = randomRGB();
+                // Store an new array of values for rgb
+                var rgbVals = newrgbVals;
+                e.target.style.backgroundColor= ('rgb(' + rgbVals[0] + ',' + rgbVals[1] + ',' +  rgbVals[2] + ')');
             
-        });
+            });
 
             container.appendChild(newCell);
         }
+        }
        
+        //default canvas on refresh
+       generateCanvas(canvasCurrentWidth, canvasCurrentHeight);
     </script>
 </body>
 </html>
