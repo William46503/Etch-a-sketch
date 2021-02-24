@@ -12,7 +12,9 @@
         <section class="settingPanel">
             <h1 class="settingPanelTitle">Settings & Options</h1>
             <div class="colorSetting">
-                <h2>In progress</h2>
+                <h2>Color</h2>
+                <input type="color" id="customHex" onchange="setUserColor()"/>
+                <button onclick="setRandomColor()" class="randomColorbtn button">Random</button>
             </div>
             <div class="canvasSizeInput">
                 <input type="number" min='2' max='100' class="sizeInputField widthInput" placeholder="Canvas Width" id="canvasWidth"   onchange="{console.log(document.getElementById('canvasWidth').value)}" />
@@ -28,11 +30,14 @@
    
     <script>
         const container = document.getElementById("canvasContainer");
+        var defaultColor = 'black'  ;
+
+        //default canvas px size
         var canvasCurrentWidth = 16;
         var canvasCurrentHeight = 16;
-
-        //Generate random number within rga value
-        function randomNum() {
+        var randomColorWanted = false;
+         //Generate random number within rga value
+         function randomNum() {
             return Math.floor(Math.random() * 256);
          }
 
@@ -42,10 +47,12 @@
             var blue = randomNum();
             return [red,green,blue];
         }    
-
+      
         //generate a new canvas and rewrite the current remembered Width and Height for other usage
         function generateNewCanvas(newWidth, newHeight){
+            //remove all existing div first
             container.querySelectorAll("div").forEach(item => item.remove());
+
             canvasCurrentWidth = newWidth;
             canvasCurrentHeight = newHeight;
             generateCanvas(canvasCurrentWidth, canvasCurrentHeight);
@@ -57,27 +64,48 @@
             console.log("canvas reset is pressed");
         }
 
+        function setUserColor(){
+            randomColorWanted = false;
+
+            //replace the defaultColor to user picked color
+            defaultColor = document.getElementById('customHex').value;
+            container.querySelectorAll("div").backgroundColor = defaultColor;
+        }
+
+        function setRandomColor(){
+            randomColorWanted = true;
+        }
+
         function generateCanvas(width, height) {
             var canvasArea = width * height;
             document.getElementById("canvasContainer").style.gridTemplateColumns = "repeat(" + width + ", auto)";
             document.getElementById("canvasContainer").style.gridTemplateRows = "repeat(" + height + ", auto)";
 
-            for (let i = 0; i < canvasArea; i++) {
-            var newCell = document.createElement('div');
-            newCell.className = "grid-item";   
+                for (let i = 0; i < canvasArea; i++) {
+                    var newCell = document.createElement('div');
+                    newCell.className = "grid-item";   
 
-            newCell.addEventListener("mouseover", (e) =>{
-                // Returns an array of 3 new values for rgb
-                var newrgbVals = randomRGB();
-                // Store an new array of values for rgb
-                var rgbVals = newrgbVals;
-                e.target.style.backgroundColor= ('rgb(' + rgbVals[0] + ',' + rgbVals[1] + ',' +  rgbVals[2] + ')');
-            
-            });
+                    //Listener on mouserover
+                    newCell.addEventListener("mouseover", (e) =>{
+                        //check if left-button is clicked when mouseovered, aka. dragging
+                        if(e.buttons == 1 || e.buttons == 3){
+                            if(randomColorWanted){
+                                // Returns an array of 3 new values for rgb
+                                var newrgbVals = randomRGB();
+                                // Store an new array of values for rgb
+                                var rgbVals = newrgbVals;
+                                defaultColor= 'rgb(' + rgbVals[0] + ',' + rgbVals[1] + ',' +  rgbVals[2] + ')';
+                                e.target.style.backgroundColor = defaultColor;
+                            }else {
+                                e.target.style.backgroundColor = defaultColor;
+                            }
+                        }
+                    });
+                container.appendChild(newCell);
+                }
+        }
 
-            container.appendChild(newCell);
-        }
-        }
+        
        
         //default canvas on refresh
        generateCanvas(canvasCurrentWidth, canvasCurrentHeight);
