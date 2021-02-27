@@ -2,6 +2,8 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f9f9;
 }
 
 .main{
@@ -128,7 +130,7 @@
 }
 
 .grid-item {
-    border: 1px solid gray;
+    border: 1px solid rgba(151, 151, 151, 0.308);
     border-radius: 3px;
     text-align: center;
    

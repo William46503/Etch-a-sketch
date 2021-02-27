@@ -5,21 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <title>Etch-A-Sketch</title>
 </head>
 <body>
     <div class="main">
         <section class="settingPanel">
-            <h1 class="settingPanelTitle">Settings & Options</h1>
+            <h1 class="settingPanelTitle">Pixel Etche-a-Sketch</h1>
             <div class="colorSetting">
-                <h2>Color</h2>
+                <h2>Pick your color</h2>
                 <input type="color" id="customHex" onchange="setUserColor()"/>
                 <button onclick="setRandomColor()" class="randomColorbtn button">Random</button>
             </div>
             <div class="canvasSizeInput">
-                <input type="number" min='2' max='100' class="sizeInputField widthInput" placeholder="Canvas Width" id="canvasWidth"   onchange="{console.log(document.getElementById('canvasWidth').value)}" />
+                <input type="number" min='2' max='100' class="sizeInputField widthInput" placeholder="Canvas Pixel Width" id="canvasWidth"   onchange="{console.log(document.getElementById('canvasWidth').value)}" />
                 <span class="X">&#10006;</span>
-                <input type="number" min='2' max='100'  class="sizeInputField heightInput" placeholder="Canvas Height" id="canvasHeight" onchange="{console.log(document.getElementById('canvasHeight').value)}"/>
+                <input type="number" min='2' max='100'  class="sizeInputField heightInput" placeholder="Canvas Pixel Height" id="canvasHeight" onchange="{console.log(document.getElementById('canvasHeight').value)}"/>
             </div>
             <button class="clearButton button" onclick="resetCanvasColor()">Clear Canvas</button>
             <button class="newCanvasButton button" onclick="generateNewCanvas(document.getElementById('canvasWidth').value, document.getElementById('canvasHeight').value)">Generate Canvas</button>
